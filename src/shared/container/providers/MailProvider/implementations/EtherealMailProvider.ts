@@ -1,5 +1,6 @@
 import IMailProvider from '../models/IMailProvider';
 import nodemailer, { Transporter } from 'nodemailer';
+import ISendMailDTO from '../dtos/ISendMailDTO';
 
 export default class EtherealMailProvider implements IMailProvider {
   private client: Transporter;
@@ -22,12 +23,18 @@ export default class EtherealMailProvider implements IMailProvider {
     });
   }
 
-  public async sendMail(to: string, body: string): Promise<void> {
+  public async sendMail({ to, from, subject }: ISendMailDTO): Promise<void> {
     const message = await this.client.sendMail({
-      from: 'matheus@gmail.com',
-      to,
-      subject: 'recupera senha',
-      text: body,
+      from: {
+        name: from?.name || 'Eqipe go Barber',
+        address: from?.email || 'go@gmail.com',
+      },
+      to: {
+        name: to.name,
+        address: to.email,
+      },
+      subject,
+      text: 'teste',
     });
     console.log('Message sent: %s', message.messageId);
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));

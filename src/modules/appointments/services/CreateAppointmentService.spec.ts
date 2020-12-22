@@ -2,17 +2,21 @@ import 'reflect-metadata';
 
 import AppError from '@shared/errors/AppError';
 
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import FakeAppointmentsRepository from '../Repositories/fakes/FakeAppointmentsRepository';
 import CreateAppointmentService from './CreateAppointmentService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let createAppointment: CreateAppointmentService;
+let fakeNotificationsRepository: FakeNotificationsRepository;
 
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
+    fakeNotificationsRepository = new FakeNotificationsRepository();
     createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
+      fakeNotificationsRepository,
     );
   });
 
@@ -32,7 +36,7 @@ describe('CreateAppointment', () => {
   });
 
   it('should not be able to create two appointments on the same time', async () => {
-    const appointmentDate = new Date(2020, 11, 21, 11);
+    const appointmentDate = new Date(2020, 11, 27, 11);
 
     await createAppointment.execute({
       date: appointmentDate,

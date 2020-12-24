@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import ISendMailDTO from '../dtos/ISendMailDTO';
 import IMailProvider from '../models/IMailProvider';
-import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTmplateProvider';
+import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
 
 @injectable()
 export default class EtherealMailProvider implements IMailProvider {
@@ -40,7 +40,7 @@ export default class EtherealMailProvider implements IMailProvider {
     const message = await this.client.sendMail({
       from: {
         name: from?.name || 'Eqipe go Barber',
-        address: from?.email || 'go@gmail.com',
+        address: from?.email || 'dev@felixbarber.tk',
       },
       to: {
         name: to.name,

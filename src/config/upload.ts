@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'felix-barber',
+      bucket: 'felix-barber2',
     },
   },
 } as IUploadConfig;

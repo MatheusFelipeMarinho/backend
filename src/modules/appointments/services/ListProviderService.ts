@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { classToClass } from 'class-transformer';
 
 interface IRequest {
   user_id: string;
@@ -29,7 +30,10 @@ class ListProviderService {
 
       console.log('a query no banco foi realizada');
 
-      await this.cashProvider.save(`providers-list:${user_id}`, users);
+      await this.cashProvider.save(
+        `providers-list:${user_id}`,
+        classToClass(users),
+      );
     }
 
     return users;

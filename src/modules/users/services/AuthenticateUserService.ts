@@ -30,7 +30,7 @@ class AuthenticateUserService {
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
-
+    console.log(email);
     if (!user) {
       throw new AppError('Incorrect email/password combination', 401);
     }
